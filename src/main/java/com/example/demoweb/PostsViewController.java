@@ -1,6 +1,7 @@
 package com.example.demoweb;
 
 import com.example.demoweb.models.Post;
+import com.example.demoweb.service.LikesService;
 import com.example.demoweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,20 +18,22 @@ public class PostsViewController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private LikesService likesService;
 
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String list(Model model) {
-        List<Post> posts = postService.listAllPosts();
+        Iterable<Post> posts = postService.listAllPosts();
         model.addAttribute("appName", "Мое супер приложение");
         model.addAttribute("posts", posts);
         return "list";
     }
 
-    @ResponseBody
-    @RequestMapping(path = "/post/{id}", method = RequestMethod.GET)
-    public String single(@PathVariable("id") Long id) {
-        return "Здесь будет страница поста №" + id;
-    }
+//    @ResponseBody
+//    @RequestMapping(path = "/post/{id}", method = RequestMethod.GET)
+//    public String single(@PathVariable("id") Long id) {
+//        return "Здесь будет страница поста №" + id;
+//    }
 
 
 }

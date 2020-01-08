@@ -2,10 +2,20 @@ package com.example.demoweb;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 @SpringBootApplication
 public class Application {
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+
+    public static void main(String[] args) throws UnknownHostException, UnknownHostException {
+        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
+        String port = ((ConfigurableApplicationContext) context).getEnvironment().getProperty("server.port");
+        InetAddress ip = InetAddress.getLocalHost();
+        String hostname = ip.getHostName();
+        System.out.println("http://localhost:" + port + "/");
     }
+
 }
